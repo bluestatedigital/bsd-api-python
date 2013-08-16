@@ -9,8 +9,8 @@ setup(
     name='bsdapi',
     version=version,
     description=long_description,
-    author='Scott Frazer',
-    author_email='sfrazer@bluestatedigital.com',
+    author='Blue State Digital',
+    author_email='help@bluestatedigital.com',
     packages=['bsdapi'],
     package_dir={'bsdapi': 'bsdapi'},
     entry_points={
@@ -18,9 +18,9 @@ setup(
             'bsdapi = bsdapi.Main:Cli'
         ]
       },
-    license = "GPL",
+    license = "Apache",
     keywords = "API, Client, HTTP",
-    url = "http://bluestatedigital.com/",
+    url = "http://tools.bluestatedigital.com/",
     classifiers=[
           "Programming Language :: Python",
           "Development Status :: 4 - Beta",
