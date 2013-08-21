@@ -1,3 +1,18 @@
+# Copyright 2013 Blue State Digital
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 from bsdapi.Bundles import Bundles
 from bsdapi.Filters import Filters
 from bsdapi.RequestGenerator import RequestGenerator
@@ -69,114 +84,6 @@ class BsdApi:
         query = {'userid': userid, 'password': password}
         url_secure = self._generateRequest('/account/set_password', query, https = True)
         return self._makeGETRequest(url_secure, https = True)
-
-    """
-        ***** Circle *****
-    """
-    def circle_listCircles(self, circle_type=None, state_cd=None):
-        query = {}
-
-        if circle_type:
-            query['circle_type'] = str(circle_type)
-
-        if state_cd:
-            query['state_cd'] = str(state_cd)
-
-        url_secure = self._generateRequest('/circle/list_circles', query)
-        return self._makeGETRequest(url_secure)
-
-    def circle_getConsIdsForCircle(self, circle_id):
-        query = {'circle_id': str(circle_id)}
-        url_secure = self._generateRequest('/circle/get_cons_ids_for_circle', query)
-        return self._makeGETRequest(url_secure)
-
-    def circle_getExtIdsForCircle(self, circle_id, ext_type):
-        query = {'circle_id': str(circle_id), 'ext_type': ext_type}
-        url_secure = self._generateRequest('/circle/get_ext_ids_for_circle', query)
-        return self._makeGETRequest(url_secure)
-
-    def circle_setConsIdsForCircle(self, circle_id, cons_ids):
-        query = {'circle_id': str(circle_id),
-                 'cons_ids': ','.join([str(cons) for cons in cons_ids])}
-
-        url_secure = self._generateRequest('/circle/set_cons_ids_for_circle')
-        return self._makeGETRequest(url_secure, query)
-
-    def circle_setExtIdsForCircle(self, circle_id, ext_type, ext_ids):
-        query = {'circle_id': str(circle_id),
-                 'ext_type': ext_type,
-                 'ext_ids': ','.join([str(ext_id) for ext_id in ext_ids])}
-
-        url_secure = self._generateRequest('/circle/set_ext_ids_for_circle')
-        return self._makePOSTRequest(url_secure, query)
-
-    def circle_addConsIdsForCircle(self, circle_id, cons_ids):
-        query = {'circle_id': str(circle_id),
-                 'cons_ids': ','.join([str(cons) for cons in cons_ids])}
-
-        url_secure = self._generateRequest('/circle/add_cons_ids_for_circle')
-        return self._makeGETRequest(url_secure, query)
-
-    def circle_addExtIdsForCircle(self, circle_id, ext_type, ext_ids):
-        query = {'circle_id': str(circle_id),
-                 'ext_type': ext_type,
-                 'ext_ids': ','.join([str(ext_id) for ext_id in ext_ids])}
-
-        url_secure = self._generateRequest('/circle/add_ext_ids_for_circle')
-        return self._makeGETRequest(url_secure, query)
-
-    def circle_removeConsIdsForCircle(self, circle_id, cons_ids):
-        query = {'circle_id': str(circle_id),
-                 'cons_ids': ','.join([str(cons) for cons in cons_ids])}
-
-        url_secure = self._generateRequest('/circle/remove_cons_ids_for_circle')
-        return self._makePOSTRequest(url_secure, query)
-
-    def circle_removeExtIdsForCircle(self, circle_id, ext_type, ext_ids):
-        query = {'circle_id': str(circle_id),
-                 'ext_type': ext_type,
-                 'ext_ids': ','.join([str(ext_id) for ext_id in ext_ids])}
-
-        url_secure = self._generateRequest('/circle/remove_ext_ids_for_circle')
-        return self._makePOSTRequest(url_secure, query)
-
-    def circle_moveConsIdsForCircle(self, from_circle_id, to_circle_id, cons_ids):
-        query = {'from_circle_id': str(from_circle_id),
-                 'to_circle_id': str(to_circle_id),
-                 'cons_ids': ','.join([str(cons) for cons in cons_ids])}
-
-        url_secure = self._generateRequest('/circle/move_cons_ids_for_circle')
-        return self._makePOSTRequest(url_secure, query)
-
-    def circle_moveExtIdsForCircle(self, from_circle_id, to_circle_id, ext_type, ext_ids):
-        query = {'from_circle_id': str(from_circle_id),
-                 'to_circle_id': str(to_circle_id),
-                 'ext_type': ext_type,
-                 'ext_ids': ','.join([str(ext_id) for ext_id in ext_ids])}
-
-        url_secure = self._generateRequest('/circle/move_ext_ids_for_circle')
-        return self._makePOSTRequest(url_secure, query)
-
-    def circle_setCircleAdministrator(self, circle_id, cons_id):
-        query = {'circle_id': str(from_circle_id),
-                 'cons_id': str(to_circle_id)}
-
-        url_secure = self._generateRequest('/circle/set_circle_administrator')
-        return self._makePOSTRequest(url_secure, query)
-
-    def circle_demoteCircleAdministrator(self, circle_id, cons_id):
-        query = {'circle_id': str(from_circle_id),
-                 'cons_id': str(to_circle_id)}
-
-        url_secure = self._generateRequest('/circle/demote_circle_administrator')
-        return self._makePOSTRequest(url_secure, query)
-
-    def circle_setCircleOwner(self, circle_id, cons_id):
-        query = {'circle_id': str(from_circle_id),
-                 'cons_id': str(to_circle_id)}
-
-        url_secure = self._generateRequest('/circle/set_circle_owner')
-        return self._makePOSTRequest(url_secure, query)
 
     """
         ***** Cons *****

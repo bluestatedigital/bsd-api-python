@@ -19,7 +19,7 @@ Configuration File
 The configuration file describes how to connect to your API host and the credentials by which to authenticate. All data needed for this configuration file can be obtained from the Control Panel under **Advanced** -> **Manage API Users**. A sample configuration file is listed below
 
     [basic]
-    host: your-site.com
+    host: you.bsd.net
     port: 80
     username: basic_user
     password: basic_pass
@@ -191,6 +191,11 @@ API Helper Methods Documentation
 --------------------------------
 The following methods are available for use. All methods return a `BsdApiResults` object unless noted otherwise.
 
+* **Account API Calls**
+    * `account_checkCredentials(userid, password)`
+    * `account_createAccount(email, password, firstname, lastname, zip)`
+    * `account_resetPassword(userid)`
+    * `account_setPassword(userid, password)`
 * **Constituent (cons) API Calls**
     * `cons_getConstituents(filter, bundles=None)`
     * `cons_getConstituentsById(cons_ids, filter=None, bundles=None)`
@@ -212,40 +217,35 @@ The following methods are available for use. All methods return a `BsdApiResults
     * `cons_group_addExtIdsToGroup(cons_group_id, ext_type, ext_ids)`
     * `cons_group_removeConsIdsToGroup(cons_group_id, cons_ids)`
     * `cons_group_removeExtIdsToGroup(cons_group_id, ext_type, ext_ids)`
-* **Circle (circle) API Calls**
-    * `circle_listCircles(circle_type=None, state_cd=None)`
-    * `circle_getConsIdsForCircle(circle_id)`
-    * `circle_getExtIdsForCircle(circle_id, ext_type)`
-    * `circle_setConsIdsForCircle(circle_id, cons_ids)`
-    * `circle_setExtIdsForCircle(circle_id, ext_type, ext_ids)`
-    * `circle_addConsIdsForCircle(circle_id, cons_ids)`
-    * `circle_addExtIdsForCircle(circle_id, ext_type, ext_ids)`
-    * `circle_removeConsIdsForCircle(circle_id, cons_ids)`
-    * `circle_removeExtIdsForCircle(circle_id, ext_type, ext_ids)`
-    * `circle_moveConsIdsForCircle(from_circle_id, to_circle_id, cons_ids)`
-    * `circle_moveExtIdsForCircle(from_circle_id, to_circle_id, ext_type, ext_ids)`
-    * `circle_setCircleAdministrator(circle_id, cons_id)`
-    * `circle_demoteCircleAdministrator(circle_id, cons_id)`
-    * `circle_setCircleOwner(circle_id, cons_id)`
+* **Deferred Results API Calls**
+    * `getDeferredResults(deferred_id)`
+* **Event RSVP API Calls**
+    * `event_rsvp_list(event_id)`
+* **Outreach (outreach) API Calls**
+    * `outreach_getPageById(outreach_page_id)`
+    * `outreach_setPageData(xml_data)`
 * **Signup (signup) API Calls**
     * `signup_listForms()`
     * `signup_listFormFields(signup_form_id)`
     * `signup_signupCount(signup_form_id, signup_form_field_ids=None)`
     * `signup_countByField(signup_form_id, signup_form_field_id)`
     * `signup_form_id, signup_form_field_id`
-* **Outreach (outreach) API Calls**
-    * `outreach_getPageById(outreach_page_id)`
-    * `outreach_setPageData(xml_data)`
 * **Wrappers (wrappers) API Calls**
     * `wrappers_listWrappers()`
-* **VAN API Calls**
-* **VAN Campaign API Calls**
-* **Account API Calls**
-    * `account_checkCredentials(userid, password)`
-    * `account_createAccount(email, password, firstname, lastname, zip)`
-    * `account_resetPassword(userid)`
-    * `account_setPassword(userid, password)`
-* **Deferred Results API Calls**
-    * `getDeferredResults(deferred_id)`
-* **Event RSVP API Calls**
-    * `event_rsvp_list(event_id)`
+
+License
+-------
+
+Copyright 2013 Blue State Digital
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
