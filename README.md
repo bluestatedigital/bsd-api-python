@@ -12,7 +12,7 @@ Installing
     $ cd /path/to/setup.py
     $ python setup.py install
 
-The executable's path might not be in your PATH.  In the output for the installer, there is a line that says where the executable is located.  It should say something like 'Installing bsdapi script to /home/sfrazer/bin'.
+The executable's path might not be in your PATH.  In the output for the installer, there is a line that says where the executable is located.  It should say something like 'Installing bsdapi script to /usr/local/bin'.
 
 Configuration File
 ------------------
@@ -98,11 +98,11 @@ from StringIO import StringIO
 from bsdapi.BsdApi import Factory as BsdApiFactory
 
 api = BsdApiFactory().create(
-    id = 'sfrazer',
-    secret = '8c0c28988dba57865bc8f6d6aa7de7230cfa42d6',
-    host = 'sandgate.bluestatedigital.com',
-    port = 8174,
-    securePort = 9174
+    id = '',
+    secret = '',
+    host = 'client.bsd.net',
+    port = 80,
+    securePort = 443
 )
 
 apiResult = api.signup_listForms()
