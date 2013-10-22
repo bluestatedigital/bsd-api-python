@@ -49,16 +49,17 @@ class RequestGenerator:
         ])
         return hmac.new(self.api_secret.encode(), string.encode(), hashlib.sha1).hexdigest()
 
-    def getUrl(self, api_call, api_params = []):
+    def getUrl(self, api_call, api_params = None):
+        if api_params is None: api_params = {}
+
         api_ts = str(int(time()))
 
-        #Set defaults
+        # Set defaults
         api_params.setdefault('api_ver', '1')
         api_params.setdefault('api_id', self.api_id)
         api_params.setdefault('api_ts', api_ts)
 
         params = sorted(api_params.items())
-
         params.append(('api_mac', self._signing_string(api_ts, api_call, params)))
 
         protocol = 'https' if self.https else 'http'

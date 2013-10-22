@@ -366,9 +366,10 @@ class BsdApi:
             charset = parsed_headers.get_param('charset')
         return (parsed_headers.get_content_type(), charset)
 
-    def _generateRequest(self, api_call, api_params = {}, https = False):
-        apiHost = self.apiHost
+    def _generateRequest(self, api_call, api_params = None, https = False):
+        if api_params is None: api_params = {}
 
+        apiHost = self.apiHost
         if https:
             if self.apiSecurePort != 443:
                 apiHost = apiHost + ':' + str(self.apiSecurePort)
