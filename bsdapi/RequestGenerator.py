@@ -65,24 +65,3 @@ class RequestGenerator:
         protocol = 'https' if self.https else 'http'
         query = self._query_str(params, quote=True)
         return URL(protocol=protocol, host=self.api_host, path=self.api_base + api_call, query=query)
-
-class TestRequestGenerator(unittest.TestCase):
-
-    def setUp(self):
-        self.host = 'enoch.bluestatedigital.com:17260'
-        self.secret = '7405d35963605dc36702c06314df85db7349613f'
-        self.api_id = 'sfrazer'
-
-    def test_hmacGenerateProperlyWhenAPIHasNoParams(self):
-        request = RequestGenerator(self.api_id, self.secret, self.host)
-        signing_string = request._signing_string('1272659462', '/cons_group/list_constituent_groups', [])
-        self.assertEqual(signing_string, '13e9de81bbdda506b6021579da86d3b6edea9755')
-
-    def test_hmacGenerateProperlyWhenAPIHasParams(self):
-        request = RequestGenerator(self.api_id, self.secret, self.host)
-        params = [('cons_ids', '1,2,3,4,5')]
-        signing_string = request._signing_string('1272662274', '/cons/get_constituents_by_id', params)
-        self.assertEqual(signing_string, 'c2af877085bcb5390aed0c8256b14ad05f2e3ef1')
-
-if __name__ == '__main__':
-    unittest.main()
