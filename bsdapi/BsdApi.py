@@ -315,6 +315,7 @@ class BsdApi:
         ***** Internal/Helpers *****
     """
     def _makeRequest(self, url_secure, request_type, http_body = None, headers = None, https=False):
+        if self.apiPort == 443: https = True
         connect_function = httplib.HTTPSConnection if https else httplib.HTTPConnection
         port = self.apiSecurePort if https else self.apiPort
 
@@ -368,6 +369,7 @@ class BsdApi:
 
     def _generateRequest(self, api_call, api_params = None, https = False):
         if api_params is None: api_params = {}
+        if self.apiPort == 443: https = True
 
         apiHost = self.apiHost
         if https:
