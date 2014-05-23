@@ -55,7 +55,7 @@ class RequestGenerator:
         api_ts = str(int(time()))
 
         # Set defaults
-        api_params.setdefault('api_ver', '1')
+        api_params.setdefault('api_ver', '2')
         api_params.setdefault('api_id', self.api_id)
         api_params.setdefault('api_ts', api_ts)
 
