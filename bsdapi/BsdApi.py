@@ -176,11 +176,11 @@ class BsdApi:
 
     def cons_listDatasets(self):
         url_secure = self._generateRequest('cons/list_datasets')
-        return self._makePOSTRequest(url_secure, query)
+        return self._makeGETRequest(url_secure)
 
     def cons_listDatasetMaps(self):
         url_secure = self._generateRequest('cons/list_dataset_maps')
-        return self._makePOSTRequest(url_secure, query)
+        return self._makeGETRequest(url_secure)
 
     def cons_uploadDataset(self, slug, map_type, csv_data):
         query = {'slug': str(slug),
