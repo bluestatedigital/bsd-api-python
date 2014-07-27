@@ -174,6 +174,36 @@ class BsdApi:
         url_secure = self._generateRequest('/cons/merge_constituents_by_email', {'email': email})
         return self._makeGETRequest(url_secure)
 
+    def cons_listDatasets(self):
+        url_secure = self._generateRequest('cons/list_datasets')
+        return self._makeGETRequest(url_secure)
+
+    def cons_listDatasetMaps(self):
+        url_secure = self._generateRequest('cons/list_dataset_maps')
+        return self._makeGETRequest(url_secure)
+
+    def cons_uploadDataset(self, slug, map_type, csv_data):
+        query = {'slug': str(slug),
+                 'map_type': str(map_type),
+                 'csv_data': str(csv_data)}
+        url_secure = self._generateRequest('/cons/upload_dataset')
+        return self._makePOSTRequest(url_secure, query)
+
+    def cons_uploadDatasetMap(self, csv_data):
+        query = {'csv_data': str(csv_data)}
+        url_secure = self._generateRequest('/cons/upload_dataset_map')
+        return self._makePOSTRequest(url_secure, query)
+
+    def cons_deleteDataset(self, dataset_id):
+        query = {'dataset_id': str(dataset_id)}
+        url_secure = self._generateRequest('/cons_group/delete_dataset', query)
+        return self._makeGETRequest(url_secure)
+
+    def cons_deleteDatasetMap(self, map_id):
+        query = {'map_id': str(map_id)}
+        url_secure = self._generateRequest('/cons_group/delete_dataset_map', query)
+        return self._makeGETRequest(url_secure)
+
     """
         ***** Cons_Group *****
     """
