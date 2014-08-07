@@ -50,7 +50,7 @@ class BsdApi:
         url_secure = self._generateRequest('/get_deferred_results', query)
         return self._makeGETRequest(url_secure)
 
-    def doRequest(self, api_call, api_params = {}, request_type = GET, body = None, headers = None, https = False):
+    def doRequest(self, api_call, api_params = None, request_type = GET, body = None, headers = None, https = False):
         url = self._generateRequest(api_call, api_params, https)
 
         if request_type == "GET":
@@ -58,7 +58,7 @@ class BsdApi:
         else:
             return self._makePOSTRequest(url, body, https)
 
-    def doRawRequest(self, api_call, api_params = {}, request_type = GET, body = None, headers = None, https = False):
+    def doRawRequest(self, api_call, api_params = None, request_type = GET, body = None, headers = None, https = False):
         url = self._generateRequest(api_call, api_params, https)
         return self._makeRequest(url, request_type, body, headers, https);
 
