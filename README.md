@@ -214,9 +214,10 @@ The following methods are available for use. All methods return a `BsdApiResults
     * `cons_group_getExtIdsForGroup(cons_group_id, ext_type)`
     * `cons_group_setExtIdsForGroup(cons_group_id, ext_type, ext_ids)`
     * `cons_group_addConsIdsToGroup(cons_group_id, cons_ids)`
+    * `cons_group_setConsIdsForGroup(cons_group_id, cons_ids)`
     * `cons_group_addExtIdsToGroup(cons_group_id, ext_type, ext_ids)`
-    * `cons_group_removeConsIdsToGroup(cons_group_id, cons_ids)`
-    * `cons_group_removeExtIdsToGroup(cons_group_id, ext_type, ext_ids)`
+    * `cons_group_removeConsIdsFromGroup(cons_group_id, cons_ids)`
+    * `cons_group_removeExtIdsFromGroup(cons_group_id, ext_type, ext_ids)`
 * **Deferred Results API Calls**
     * `getDeferredResults(deferred_id)`
 * **Event RSVP API Calls**

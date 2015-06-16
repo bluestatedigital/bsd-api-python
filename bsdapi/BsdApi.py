@@ -255,6 +255,13 @@ class BsdApi:
         url_secure = self._generateRequest('/cons_group/add_cons_ids_to_group')
         return self._makePOSTRequest(url_secure, query)
 
+    def cons_group_setConsIdsForGroup(self, cons_group_id, cons_ids):
+        query = {'cons_group_id': str(cons_group_id),
+                 'cons_ids': ','.join([str(cons) for cons in cons_ids])}
+
+        url_secure = self._generateRequest('/cons_group/set_cons_ids_for_group')
+        return self._makePOSTRequest(url_secure, query)
+
     def cons_group_addExtIdsToGroup(self, cons_group_id, ext_type, ext_ids):
         query = {'cons_group_id': str(cons_group_id),
                  'ext_type': ext_type,
