@@ -372,8 +372,6 @@ class BsdApi:
             response = requests.request(request_type, composite_url, data=http_body, headers=headers, verify=True)
 
             headers = response.headers
-            content_type, charset = self._parseContentType(response.getheader('Content-Type', default = 'application/json; charset=iso-8859-1'))
-            response.encoding = charset
             body = response.text
 
             results = self.apiResultFactory.create(url_secure, response, headers, body)
@@ -382,13 +380,6 @@ class BsdApi:
         except requests.exceptions.RequestException as error:
             print(error)
             print("Error calling " + url_secure.getPathAndQuery())
-
-    def _parseContentType(self, content_type_header, default_charset = 'iso-8859-1'):
-        parsed_headers = email.parser.Parser().parsestr("Content-Type: %s" % content_type_header, headersonly = True)
-        charset = default_charset
-        if parsed_headers.get_param('charset') is not None:
-            charset = parsed_headers.get_param('charset')
-        return (parsed_headers.get_content_type(), charset)
 
     def _generateRequest(self, api_call, api_params = None, https = False):
         if api_params is None: api_params = {}
