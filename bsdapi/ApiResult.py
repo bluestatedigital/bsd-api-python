@@ -45,7 +45,7 @@ class ApiResultPrettyPrintable:
 class ApiResult:
     def __init__(self, request_url, http_response, headers, body, stringizer = None):
         self.s=http_response
-        self.http_status  = http_response.status
+        self.http_status  = http_response.status_code
         self.http_reason  = http_response.reason
         self.http_version = ('HTTP/1.0' if http_response.version == 10 else 'HTTP/1.1')
         self.__dict__.update(locals())

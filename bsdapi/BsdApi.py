@@ -20,12 +20,7 @@ from bsdapi.Styler import Factory as StylerFactory
 from bsdapi.ApiResult import FactoryFactory as ApiResultFactoryFactory
 from bsdapi.ApiResult import ApiResultPrettyPrintable
 
-try:
-    import http.client as httplib
-    from http.client import HTTPException
-except ImportError:
-    import httplib
-    from httplib import HTTPException
+import requests
 
 try:
     from urllib.parse import urlencode
@@ -50,7 +45,7 @@ class BsdApi:
         url_secure = self._generateRequest('/get_deferred_results', query)
         return self._makeGETRequest(url_secure)
 
-    def doRequest(self, api_call, api_params = None, request_type = GET, body = None, headers = None, https = False):
+    def doRequest(self, api_call, api_params = None, request_type = GET, body = None, headers = None, https = True):
         url = self._generateRequest(api_call, api_params, https)
 
         if request_type == "GET":
@@ -58,7 +53,7 @@ class BsdApi:
         else:
             return self._makePOSTRequest(url, body, https)
 
-    def doRawRequest(self, api_call, api_params = None, request_type = GET, body = None, headers = None, https = False):
+    def doRawRequest(self, api_call, api_params = None, request_type = GET, body = None, headers = None, https = True):
         url = self._generateRequest(api_call, api_params, https)
         return self._makeRequest(url, request_type, body, headers, https);
 
@@ -356,12 +351,11 @@ class BsdApi:
     """
         ***** Internal/Helpers *****
     """
-    def _makeRequest(self, url_secure, request_type, http_body = None, headers = None, https=False):
+    def _makeRequest(self, url_secure, request_type, http_body = None, headers = None, https = True):
         if self.apiPort == 443: https = True
-        connect_function = httplib.HTTPSConnection if https else httplib.HTTPConnection
-        port = self.apiSecurePort if https else self.apiPort
+        # TODO: support nonstandard ports?  We block them on Akamai anyway.
 
-        connection = connect_function(self.apiHost, port)
+        composite_url = ("https://" if https else "http://") + self.apiHost + url_secure.getPathAndQuery()
 
         if headers == None:
             headers = dict()
@@ -375,30 +369,22 @@ class BsdApi:
             headers["Authorization"] = "Basic " + base64.b64encode(auth_string.encode('utf-8')).decode('utf-8')
 
         if self.verbose:
-            print request_type + " " + url_secure.getPathAndQuery()
+            print request_type + " " + composite_url
             print '\n'.join(['%s: %s' % (k, v) for k, v in headers.items()])
             print "\n%s\n\n----\n" % http_body
 
-        if http_body != None and headers != None:
-            connection.request(request_type, url_secure.getPathAndQuery(), http_body, headers)
-        elif headers != None:
-            connection.request(request_type, url_secure.getPathAndQuery(), None, headers)
-        else:
-            connection.request(request_type, url_secure.getPathAndQuery())
-
-        response = None
         try:
-            response = connection.getresponse()
-            headers = response.getheaders()
-            body_bytes = response.read()
-            content_type, charset = self._parseContentType(response.getheader('Content-Type', default = 'application/json; charset=iso-8859-1'))
-            body = body_bytes.decode(charset)
+            response = requests.request(request_type, composite_url, data=http_body, headers=headers, verify=True)
 
-            connection.close()
+            headers = response.headers
+            content_type, charset = self._parseContentType(response.getheader('Content-Type', default = 'application/json; charset=iso-8859-1'))
+            response.encoding = charset
+            body = response.text
 
             results = self.apiResultFactory.create(url_secure, response, headers, body)
             return results
-        except HTTPException as error:
+
+        except requests.exceptions.RequestException as error:
             print(error)
             print("Error calling " + url_secure.getPathAndQuery())
 
@@ -431,13 +417,7 @@ class BsdApi:
     def _makePOSTRequest(self, url_secure, body, https = False):
         headers = {"Content-type": "application/x-www-form-urlencoded",
                    "Accept": "text/xml"}
-
-        if type(body).__name__ == 'dict':
-            http_body = urlencode(body)
-        else:
-            http_body = body
-
-        return self._makeRequest(url_secure, BsdApi.POST, http_body, headers, https)
+        return self._makeRequest(url_secure, BsdApi.POST, body, headers, https)
 
 class Factory:
     def create(self, id, secret, host, port, securePort, colorize = False):
