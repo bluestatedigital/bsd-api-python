@@ -22,11 +22,6 @@ from bsdapi.ApiResult import ApiResultPrettyPrintable
 
 import requests
 
-try:
-    from urllib.parse import urlencode
-except ImportError:
-    from urllib import urlencode
-
 import sys, traceback, base64, logging, email.parser
 
 class BsdApi:
