@@ -381,7 +381,7 @@ class BsdApi:
             print(error)
             print("Error calling " + url_secure.getPathAndQuery())
 
-    def _generateRequest(self, api_call, api_params = None, https = False):
+    def _generateRequest(self, api_call, api_params = None, https = True):
         if api_params is None: api_params = {}
         if self.apiPort == 443: https = True
 
@@ -397,10 +397,10 @@ class BsdApi:
         url_secure = request.getUrl(api_call, api_params)
         return url_secure
 
-    def _makeGETRequest(self, url_secure, https = False):
+    def _makeGETRequest(self, url_secure, https = True):
         return self._makeRequest(url_secure, BsdApi.GET, https = https);
 
-    def _makePOSTRequest(self, url_secure, body, https = False):
+    def _makePOSTRequest(self, url_secure, body, https = True):
         headers = {"Content-type": "application/x-www-form-urlencoded",
                    "Accept": "text/xml"}
         return self._makeRequest(url_secure, BsdApi.POST, body, headers, https)
