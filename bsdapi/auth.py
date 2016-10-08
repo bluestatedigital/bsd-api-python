@@ -1,8 +1,14 @@
 import hmac
 import hashlib
 from time import time
-import urllib
-import urlparse
+
+# Make urllib functions compatible across python 2 and 3 with depending on `Six`
+try:
+    from urllib.parse import urlparse, urlencode, urlunparse, parse_qsl, unquote_plus
+except ImportError:
+    from urlparse import urlparse, urlunparse, parse_qsl
+    from urllib import urlencode, unquote_plus
+
 from requests.auth import AuthBase
 
 
@@ -15,8 +21,8 @@ class BsdApiAuth(AuthBase):
 
     def __call__(self, request):
         # break the request URL down into components we can manpulate
-        parsed = urlparse.urlparse(request.url)
-        query_parsed = [(p[0], p[1]) for p in urlparse.parse_qsl(parsed.query)]
+        parsed = urlparse(request.url)
+        query_parsed = [(p[0], p[1]) for p in parse_qsl(parsed.query)]
 
         # add required parameters
         api_ts = str(int(time()))
@@ -28,8 +34,8 @@ class BsdApiAuth(AuthBase):
         ])
         query_parsed.append(('api_mac', self._generate_api_mac(api_ts, parsed.path, query_parsed)))
 
-        request.url = urlparse.urlunparse(
-            (parsed.scheme, parsed.netloc, parsed.path, parsed.params, urllib.urlencode(query_parsed), parsed.fragment)
+        request.url = urlunparse(
+            (parsed.scheme, parsed.netloc, parsed.path, parsed.params, urlencode(query_parsed), parsed.fragment)
         )
 
         # modify and return the request
@@ -40,7 +46,7 @@ class BsdApiAuth(AuthBase):
             self.api_id,
             api_ts,
             api_call,
-            urllib.unquote_plus(urllib.urlencode(api_params))
+            unquote_plus(urlencode(api_params))
         ])
 
         return hmac.new(self.api_secret.encode(), signing_string.encode(), hashlib.sha1).hexdigest()

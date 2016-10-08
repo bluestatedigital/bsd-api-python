@@ -6,6 +6,9 @@ A Python SDK for the Blue State Digital API. Stay Progressive.
 .. image:: https://travis-ci.org/bmd/bsd-api-python.svg?branch=master
     :target: https://travis-ci.org/bmd/bsd-api-python
 
+.. image:: https://coveralls.io/repos/github/bmd/bsd-api-python/badge.svg
+    :target: https://coveralls.io/github/bmd/bsd-api-python
+
 
 Requirements
 ============
@@ -90,7 +93,7 @@ Changelog
 
 * Removed REPL-style API explorer
 * Removed custom logging and message factories - use stdlib ``logging`` module via ``requests``.
-* Now uses ``requests``, the excellent python HTTP library
+* Now uses ``requests``, the excellent python HTTP library.
 * Removed convenience methods - endpoints are called directly by providing the URL path, body, and query parameters.
-* Removed custom ``BsdApiResponse`` object.
-* Published on PyPI for improved install experience
+* Removed custom ``BsdApiResponse`` object. All API responses are now instanes of ``requests.Response``.
+* Published on PyPI for improved install experience.

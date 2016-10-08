@@ -13,5 +13,5 @@
 # limitations under the License.
 #
 
-from client import BsdApiClient
-from auth import BsdApiAuth
+from .client import BsdApiClient
+from .auth import BsdApiAuth

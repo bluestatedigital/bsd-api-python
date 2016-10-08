@@ -1,6 +1,6 @@
 from time import sleep
 import requests
-from auth import BsdApiAuth
+from .auth import BsdApiAuth
 
 
 class BsdApiClient(object):

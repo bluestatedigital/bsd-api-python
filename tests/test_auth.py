@@ -1,6 +1,9 @@
 from bsdapi import BsdApiAuth
 from requests import Request
-import urlparse
+try:
+    import urlparse
+except ImportError:
+    import urllib.parse as urlparse
 
 
 def test_auth_properties():
@@ -23,7 +26,7 @@ def test_auth_adds_expected_parameters():
     assert 'api_mac' not in r.params
 
     p = r.prepare()
-    query_params = {p[0]: p[1] for p in urlparse.parse_qsl(urlparse.urlparse(p.url).query)}
+    query_params = dict(urlparse.parse_qsl(urlparse.urlparse(p.url).query))
 
     # check that the auth method has added the correct parameters to the response
     assert 'api_mac' in query_params
