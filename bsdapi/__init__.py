@@ -1,4 +1,4 @@
-# Copyright 2013 Blue State Digital
+# Copyright 2016 Blue State Digital
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,3 +13,5 @@
 # limitations under the License.
 #
 
+from client import BsdApiClient
+from auth import BsdApiAuth
