@@ -1,4 +1,4 @@
-# from https://github.com/github/gitignore.git
+.cache/
 
 *.py[co]
 
@@ -22,8 +22,8 @@ pip-log.txt
 .coverage
 .tox
 
-#Translations
-*.mo
+# IDE
+.idea/
 
-#Mr Developer
-.mr.developer.cfg]
+# Virtual Environments
+venv/
