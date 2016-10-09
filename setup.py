@@ -13,16 +13,19 @@
 # limitations under the License.
 #
 
-import os
+# Always prefer setuptools over distutils
 from setuptools import setup
+from codecs import open
+from os import path
+
+# Get the long description from the README file
+with open(path.join(path.abspath(path.dirname(__file__)), 'README.rst'), encoding='utf-8') as f:
+    long_description = f.read()
 
 version = "3.0.0"
 
-README = os.path.join(os.path.dirname(__file__), 'README.rst')
-long_description = "Blue State Digital's Python API Client"
-
 setup(
-    name='bsdapi',
+    name='bluestatedigital-api',
     version=version,
     description=long_description,
     author='Blue State Digital',
@@ -39,8 +42,10 @@ setup(
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
+        'Natural Language :: English',
         'Operating System :: OS Independent',
-        'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: Apache Software License',
+        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
@@ -48,5 +53,16 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
-    install_requires=['requests'],
+    install_requires=[
+        'requests'
+    ],
+    extras_require={
+        'test': [
+            'pytest',
+            'coverage'
+        ],
+        'dev': [
+            'twine'
+        ]
+    },
 )
