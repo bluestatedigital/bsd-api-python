@@ -276,12 +276,42 @@ class BsdApi:
         return self._makePOSTRequest(url_secure, query)
 
     """
+        ***** Contribution *****
+    """
+    def contribution_getContributions(self, filter):
+        """
+        Get contributions with a filter
+
+        **Does not currently support filtering by source**
+        """
+        query = {}
+        for key, value in filter.items():
+            query['filter[' + key + ']'] = value
+
+        url_secure = self._generateRequest('/contribution/get_contributions', query)
+        print url_secure
+        return self._makeGETRequest(url_secure)
+
+    """
         ***** Event_RSVP *****
     """
     def event_rsvp_list(self, event_id):
         query = {'event_id': str(event_id)}
         url_secure = self._generateRequest('/event/list_rsvps')
         return self._makePOSTRequest(url_secure, query)
+
+    """
+        ***** Mailer *****
+    """
+    def mailer_sendTriggeredEmail(self, mailing_id, email, email_opt_in=False):
+        """Send a triggered email"""
+        query = {
+            'mailing_id': mailing_id,
+            'email': email,
+            'email_opt_in': int(email_opt_in)
+        }
+        url_secure = self._generateRequest('/mailer/send_triggered_email', query)
+        return self._makeGETRequest(url_secure)
 
     """
         ***** Outreach *****
