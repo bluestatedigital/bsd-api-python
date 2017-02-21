@@ -218,10 +218,14 @@ The following methods are available for use. All methods return a `BsdApiResults
     * `cons_group_addExtIdsToGroup(cons_group_id, ext_type, ext_ids)`
     * `cons_group_removeConsIdsFromGroup(cons_group_id, cons_ids)`
     * `cons_group_removeExtIdsFromGroup(cons_group_id, ext_type, ext_ids)`
+* **Contribution (contribute) API Calls**
+    * `contribution_getContributions(filter)` (does not currently support filtering by source)
 * **Deferred Results API Calls**
     * `getDeferredResults(deferred_id)`
 * **Event RSVP API Calls**
     * `event_rsvp_list(event_id)`
+* **Mailer API Calls**
+    * `mailer_sendTriggeredEmail(self, mailing_id, email, email_opt_in=False)`
 * **Outreach (outreach) API Calls**
     * `outreach_getPageById(outreach_page_id)`
     * `outreach_setPageData(xml_data)`

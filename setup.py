@@ -41,5 +41,6 @@ setup(
           "Development Status :: 4 - Beta",
           "Intended Audience :: Developers",
           "Natural Language :: English",
-      ]
+      ],
+    install_requires = ["requests"]
     )
