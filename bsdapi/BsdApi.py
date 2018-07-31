@@ -151,6 +151,10 @@ class BsdApi:
         url_secure = self._generateRequest('/cons/set_constituent_data')
         return self._makePOSTRequest(url_secure, xml_data)
 
+    def cons_upsertConstituentData(self, xml_data):
+        url_secure = self._generateRequest('/cons/upsert_constituent_data')
+        return self._makePOSTRequest(url_secure, xml_data)
+
     def cons_setCustomConstituentFields(self, xml_data, cons_id, delete_missing):
         query = {'cons_id': str(cons_id),'delete_missing': str(delete_missing)}
         url_secure = self._generateRequest('/cons/set_custom_constituent_fields',query)
