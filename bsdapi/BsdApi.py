@@ -148,7 +148,14 @@ class BsdApi:
         return self._makePOSTRequest(url_secure, query)
 
     def cons_setConstituentData(self, xml_data):
+        """
+        This path has been deprecated. Please use cons_upsertConstituentDate() instead.
+        """
         url_secure = self._generateRequest('/cons/set_constituent_data')
+        return self._makePOSTRequest(url_secure, xml_data)
+
+    def cons_upsertConstituentData(self, xml_data):
+        url_secure = self._generateRequest('/cons/upsert_constituent_data')
         return self._makePOSTRequest(url_secure, xml_data)
 
     def cons_setCustomConstituentFields(self, xml_data, cons_id, delete_missing):
