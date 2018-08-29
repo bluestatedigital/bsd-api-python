@@ -15,6 +15,7 @@
 
 import logging
 
+
 class Factory:
     logMap = {
         'debug': logging.DEBUG,
@@ -24,7 +25,7 @@ class Factory:
         'critical': logging.CRITICAL
     }
 
-    def create( self, level ):
+    def create(self, level):
         try:
             llevel = self.logMap[level.lower()]
         except KeyError:

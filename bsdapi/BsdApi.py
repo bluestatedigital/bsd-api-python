@@ -24,23 +24,25 @@ import requests
 
 import sys, traceback, base64, logging, email.parser
 
-class BsdApi:
 
+class BsdApi:
     GET = 'GET'
     POST = 'POST'
 
-    def __init__(self, apiId, apiSecret, apiHost, apiResultFactory, apiPort = 80, apiSecurePort = 443, httpUsername = None, httpPassword = None, verbose = False):
+    def __init__(self, apiId, apiSecret, apiHost, apiResultFactory, apiPort=80, apiSecurePort=443, httpUsername=None,
+                 httpPassword=None, verbose=False):
         self.__dict__.update(locals())
 
     """
         ***** General *****
     """
+
     def getDeferredResults(self, deferred_id):
         query = {'deferred_id': deferred_id}
         url_secure = self._generateRequest('/get_deferred_results', query)
         return self._makeGETRequest(url_secure)
 
-    def doRequest(self, api_call, api_params = None, request_type = GET, body = None, headers = None, https = True):
+    def doRequest(self, api_call, api_params=None, request_type=GET, body=None, headers=None, https=True):
         url = self._generateRequest(api_call, api_params, https)
 
         if request_type == "GET":
@@ -48,36 +50,38 @@ class BsdApi:
         else:
             return self._makePOSTRequest(url, body, https)
 
-    def doRawRequest(self, api_call, api_params = None, request_type = GET, body = None, headers = None, https = True):
+    def doRawRequest(self, api_call, api_params=None, request_type=GET, body=None, headers=None, https=True):
         url = self._generateRequest(api_call, api_params, https)
         return self._makeRequest(url, request_type, body, headers, https);
 
     """
         ***** Account *****
     """
+
     def account_checkCredentials(self, userid, password):
         query = {'userid': userid, 'password': password}
-        url_secure = self._generateRequest('/account/check_credentials', query, https = True)
-        return self._makeGETRequest(url_secure, https = True)
+        url_secure = self._generateRequest('/account/check_credentials', query, https=True)
+        return self._makeGETRequest(url_secure, https=True)
 
     def account_createAccount(self, email, password, firstname, lastname, zip):
-        query = {'email':email, 'password':password, 'firstname':firstname, 'lastname':lastname, 'zip':zip}
-        url_secure = self._generateRequest('/account/create_account', query, https = True)
-        return self._makeGETRequest(url_secure, https = True)
+        query = {'email': email, 'password': password, 'firstname': firstname, 'lastname': lastname, 'zip': zip}
+        url_secure = self._generateRequest('/account/create_account', query, https=True)
+        return self._makeGETRequest(url_secure, https=True)
 
     def account_resetPassword(self, userid):
         query = {'userid': userid}
-        url_secure = self._generateRequest('/account/reset_password', query, https = True)
-        return self._makeGETRequest(url_secure, https = True)
+        url_secure = self._generateRequest('/account/reset_password', query, https=True)
+        return self._makeGETRequest(url_secure, https=True)
 
     def account_setPassword(self, userid, password):
         query = {'userid': userid, 'password': password}
-        url_secure = self._generateRequest('/account/set_password', query, https = True)
-        return self._makeGETRequest(url_secure, https = True)
+        url_secure = self._generateRequest('/account/set_password', query, https=True)
+        return self._makeGETRequest(url_secure, https=True)
 
     """
         ***** Cons *****
     """
+
     def cons_getConstituents(self, filter, bundles=None):
         query = {'filter': str(Filters(filter))}
 
@@ -92,7 +96,7 @@ class BsdApi:
         query = {'cons_ids': ','.join([str(elem) for elem in cons_ids])}
 
         if filter:
-            query['filter'] =  str(Filters(filter))
+            query['filter'] = str(Filters(filter))
 
         if bundles:
             query['bundles'] = str(Bundles(bundles))
@@ -104,7 +108,7 @@ class BsdApi:
         query = {'ext_type': ext_type, 'ext_ids': ','.join([str(elem) for elem in ext_ids])}
 
         if filter:
-            query['filter'] =  str(Filters(filter))
+            query['filter'] = str(Filters(filter))
 
         if bundles:
             query['bundles'] = str(Bundles(bundles))
@@ -116,7 +120,7 @@ class BsdApi:
         query = {'changed_since': str(changed_since)}
 
         if filter:
-            query['filter'] =  str(Filters(filter))
+            query['filter'] = str(Filters(filter))
 
         if bundles:
             query['bundles'] = str(Bundles(bundles))
@@ -142,7 +146,7 @@ class BsdApi:
             query['cons_ids'] = ','.join([str(cons) for cons in cons_ids])
 
         if filter:
-            query['filter'] =  str(Filters(filter))
+            query['filter'] = str(Filters(filter))
 
         url_secure = self._generateRequest('/cons/get_bulk_constituent_data', {})
         return self._makePOSTRequest(url_secure, query)
@@ -159,8 +163,8 @@ class BsdApi:
         return self._makePOSTRequest(url_secure, xml_data)
 
     def cons_setCustomConstituentFields(self, xml_data, cons_id, delete_missing):
-        query = {'cons_id': str(cons_id),'delete_missing': str(delete_missing)}
-        url_secure = self._generateRequest('/cons/set_custom_constituent_fields',query)
+        query = {'cons_id': str(cons_id), 'delete_missing': str(delete_missing)}
+        url_secure = self._generateRequest('/cons/set_custom_constituent_fields', query)
         return self._makePOSTRequest(url_secure, xml_data)
 
     def cons_getCustomConstituentFields(self):
@@ -209,6 +213,7 @@ class BsdApi:
     """
         ***** Cons_Group *****
     """
+
     def cons_group_listConstituentGroups(self):
         url_secure = self._generateRequest('/cons_group/list_constituent_groups')
         return self._makeGETRequest(url_secure)
@@ -285,6 +290,7 @@ class BsdApi:
     """
         ***** Contribution *****
     """
+
     def contribution_getContributions(self, filter):
         """
         Get contributions with a filter
@@ -296,12 +302,14 @@ class BsdApi:
             query['filter[' + key + ']'] = value
 
         url_secure = self._generateRequest('/contribution/get_contributions', query)
-        print url_secure
+        print
+        url_secure
         return self._makeGETRequest(url_secure)
 
     """
         ***** Event_RSVP *****
     """
+
     def event_rsvp_list(self, event_id):
         query = {'event_id': str(event_id)}
         url_secure = self._generateRequest('/event/list_rsvps')
@@ -310,6 +318,7 @@ class BsdApi:
     """
         ***** Mailer *****
     """
+
     def mailer_sendTriggeredEmail(self, mailing_id, email, email_opt_in=False):
         """Send a triggered email"""
         query = {
@@ -323,6 +332,7 @@ class BsdApi:
     """
         ***** Outreach *****
     """
+
     def outreach_getPageById(self, id):
         query = {'id': str(id)}
         url_secure = self._generateRequest('/outreach/get_page_by_id')
@@ -335,6 +345,7 @@ class BsdApi:
     """
         ***** Reference *****
     """
+
     def reference_processPersonalizationTag(self, who):
         url_secure = self._generateRequest('/reference/process_personalization_tag', {'who': who})
         return self._makeGETRequest(url_secure)
@@ -342,6 +353,7 @@ class BsdApi:
     """
         ***** Signup *****
     """
+
     def signup_processSignup(self, xml_data):
         query = {}
         url_secure = self._generateRequest('/signup/process_signup', query)
@@ -376,6 +388,7 @@ class BsdApi:
     """
         ***** Wrappers *****
     """
+
     def wrappers_listWrappers(self):
         url_secure = self._generateRequest('/wrappers/list_wrappers')
         return self._makeGETRequest(url_secure)
@@ -383,7 +396,8 @@ class BsdApi:
     """
         ***** Internal/Helpers *****
     """
-    def _makeRequest(self, url_secure, request_type, http_body = None, headers = None, https = True):
+
+    def _makeRequest(self, url_secure, request_type, http_body=None, headers=None, https=True):
         if self.apiPort == 443: https = True
         # TODO: support nonstandard ports?  We block them on Akamai anyway.
 
@@ -401,9 +415,12 @@ class BsdApi:
             headers["Authorization"] = "Basic " + base64.b64encode(auth_string.encode('utf-8')).decode('utf-8')
 
         if self.verbose:
-            print request_type + " " + composite_url
-            print '\n'.join(['%s: %s' % (k, v) for k, v in headers.items()])
-            print "\n%s\n\n----\n" % http_body
+            print
+            request_type + " " + composite_url
+            print
+            '\n'.join(['%s: %s' % (k, v) for k, v in headers.items()])
+            print
+            "\n%s\n\n----\n" % http_body
 
         try:
             response = requests.request(request_type, composite_url, data=http_body, headers=headers, verify=True)
@@ -418,7 +435,7 @@ class BsdApi:
             print(error)
             print("Error calling " + url_secure.getPathAndQuery())
 
-    def _generateRequest(self, api_call, api_params = None, https = True):
+    def _generateRequest(self, api_call, api_params=None, https=True):
         if api_params is None: api_params = {}
         if self.apiPort == 443: https = True
 
@@ -434,16 +451,17 @@ class BsdApi:
         url_secure = request.getUrl(api_call, api_params)
         return url_secure
 
-    def _makeGETRequest(self, url_secure, https = True):
-        return self._makeRequest(url_secure, BsdApi.GET, https = https);
+    def _makeGETRequest(self, url_secure, https=True):
+        return self._makeRequest(url_secure, BsdApi.GET, https=https);
 
-    def _makePOSTRequest(self, url_secure, body, https = True):
+    def _makePOSTRequest(self, url_secure, body, https=True):
         headers = {"Content-type": "application/x-www-form-urlencoded",
                    "Accept": "text/xml"}
         return self._makeRequest(url_secure, BsdApi.POST, body, headers, https)
 
+
 class Factory:
-    def create(self, id, secret, host, port, securePort, colorize = False):
-        styler = StylerFactory().create( colorize )
+    def create(self, id, secret, host, port, securePort, colorize=False):
+        styler = StylerFactory().create(colorize)
         apiResultFactory = ApiResultFactoryFactory().create(ApiResultPrettyPrintable(styler))
-        return BsdApi(id,secret,host,apiResultFactory,port,securePort)
+        return BsdApi(id, secret, host, apiResultFactory, port, securePort)

@@ -29,6 +29,7 @@ from bsdapi.BsdApi import Factory as BsdApiFactory
 from bsdapi.Logger import Factory as LoggerFactory
 from bsdapi.Styler import Factory as StylerFactory
 
+
 class Console(InteractiveConsole):
     def __init__(self, localVars=None, filename="<console>", histfile=os.path.expanduser("~/.bsdapi_history")):
         InteractiveConsole.__init__(self, localVars, filename)
@@ -50,39 +51,40 @@ class Console(InteractiveConsole):
         sys.ps1 = 'api> '
         self.interact('Blue State Digital API Client')
 
+
 def Cli():
     ver = sys.version_info
 
     if ver.major < 2 or (ver.major == 3 and ver.minor < 2) or (ver.major == 2 and ver.minor < 7):
-        print("Python 2.7+ required. %d.%d.%d installed" %(ver.major, ver.minor, ver.micro))
+        print("Python 2.7+ required. %d.%d.%d installed" % (ver.major, ver.minor, ver.micro))
         sys.exit(-1)
 
     parser = argparse.ArgumentParser(
-        description = 'Blue State Digital API Client',
-        epilog = '(c) 2011 Blue State Digital')
+        description='Blue State Digital API Client',
+        epilog='(c) 2011 Blue State Digital')
 
     parser.add_argument('config',
-        nargs = 1,
-        metavar = 'CONFIG',
-        help='Configuration file')
+                        nargs=1,
+                        metavar='CONFIG',
+                        help='Configuration file')
 
     parser.add_argument('-L', '--log-level',
-        default = 'warning',
-        help = "'debug', 'error', 'warning', 'info', or 'critical'")
+                        default='warning',
+                        help="'debug', 'error', 'warning', 'info', or 'critical'")
 
     parser.add_argument('-c', '--color',
-        action = 'store_true',
-        default = False,
-        help = 'Display with ANSI terminal colors.')
+                        action='store_true',
+                        default=False,
+                        help='Display with ANSI terminal colors.')
 
     parser.add_argument('-v', '--verbose',
-        action = 'store_true',
-        default = False,
-        help = 'Show verbose output.')
+                        action='store_true',
+                        default=False,
+                        help='Show verbose output.')
 
     cli = parser.parse_args()
     logger = LoggerFactory().create(cli.log_level)
-    logger.debug( 'CLI: %s' % (cli) )
+    logger.debug('CLI: %s' % (cli))
 
     if not os.path.exists(cli.config[0]):
         logger.error("Error: configuration file %s does not exist." % (cli.config[0]))
@@ -92,7 +94,7 @@ def Cli():
     config.read(cli.config[0])
 
     settings = {
-        'basic' : {
+        'basic': {
             'host': 'localhost',
             'port': '80',
             'secure_port': '443'
@@ -102,16 +104,16 @@ def Cli():
     for key, value in config.items('basic'):
         settings['basic'][key] = value
 
-    logger.debug( 'Settings: %s' % (settings) )
+    logger.debug('Settings: %s' % (settings))
 
     apiFactory = BsdApiFactory()
     api = apiFactory.create(
-        id = settings['basic']['api_id'], \
-        secret = settings['basic']['secret'], \
-        host = settings['basic']['host'], \
-        port = settings['basic']['port'], \
-        securePort = settings['basic']['secure_port'],
-        colorize = cli.color
+        id=settings['basic']['api_id'], \
+        secret=settings['basic']['secret'], \
+        host=settings['basic']['host'], \
+        port=settings['basic']['port'], \
+        securePort=settings['basic']['secure_port'],
+        colorize=cli.color
     )
 
     console = Console({
