@@ -302,8 +302,7 @@ class BsdApi:
             query['filter[' + key + ']'] = value
 
         url_secure = self._generateRequest('/contribution/get_contributions', query)
-        print
-        url_secure
+        print(url_secure)
         return self._makeGETRequest(url_secure)
 
     """
@@ -415,12 +414,9 @@ class BsdApi:
             headers["Authorization"] = "Basic " + base64.b64encode(auth_string.encode('utf-8')).decode('utf-8')
 
         if self.verbose:
-            print
-            request_type + " " + composite_url
-            print
-            '\n'.join(['%s: %s' % (k, v) for k, v in headers.items()])
-            print
-            "\n%s\n\n----\n" % http_body
+            print(request_type + " " + composite_url)
+            print('\n'.join(['%s: %s' % (k, v) for k, v in headers.items()]))
+            print("\n%s\n\n----\n" % http_body)
 
         try:
             response = requests.request(request_type, composite_url, data=http_body, headers=headers, verify=True)
