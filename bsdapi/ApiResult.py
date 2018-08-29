@@ -29,7 +29,7 @@ class ApiResultPrettyPrintable:
             color = 'red'
 
         status_str = "%s %s %s" % (apiResult.http_version, str(apiResult.http_status), apiResult.http_reason)
-        headers_str = '\n'.join(['%s: %s' % (k, v) for k, v in apiResult.headers]) + '\n'
+        headers_str = '\n'.join(['%s: %s' % (k, v) for k, v in apiResult.headers.items()]) + '\n'
 
         ''' assume json response body and try to prettyprint, just print plain
         response if fail'''
