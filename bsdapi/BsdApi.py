@@ -29,7 +29,8 @@ class BsdApi:
     GET = 'GET'
     POST = 'POST'
 
-    def __init__(self, apiId, apiSecret, apiHost, apiResultFactory, apiPort=80, apiSecurePort=443, httpUsername=None, httpPassword=None, verbose=False, encoding=None):
+    def __init__(self, apiId, apiSecret, apiHost, apiResultFactory, apiPort=80, apiSecurePort=443, httpUsername=None,
+                 httpPassword=None, verbose=False, encoding=None):
         self.__dict__.update(locals())
 
     """
@@ -459,7 +460,9 @@ class BsdApi:
 
 
 class Factory:
-    def create(self, id, secret, host, port, securePort, colorize=False, httpUsername=None, httpPassword=None, verbose=False, encoding=None):
+    def create(self, id, secret, host, port, securePort, colorize=False, httpUsername=None, httpPassword=None,
+               verbose=False, encoding=None):
         styler = StylerFactory().create(colorize)
         apiResultFactory = ApiResultFactoryFactory().create(ApiResultPrettyPrintable(styler))
-        return BsdApi(id, secret, host, apiResultFactory, port, securePort, httpUsername, httpPassword, verbose, encoding)
+        return BsdApi(id, secret, host, apiResultFactory, port, securePort, httpUsername, httpPassword, verbose,
+                      encoding)
