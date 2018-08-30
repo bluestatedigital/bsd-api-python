@@ -49,6 +49,7 @@ To display usage options use the `--help` flag
                             'debug', 'error', 'warning', 'info', or 'critical'
       -c, --color           Display with ANSI terminal colors.
       -v, --verbose         Show verbose output.
+      -e, --encode          Enable UTF8 encoding
 
     (c) 2011 Blue State Digital
 
