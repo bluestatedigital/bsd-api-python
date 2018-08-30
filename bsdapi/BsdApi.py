@@ -128,6 +128,13 @@ class BsdApi:
         url_secure = self._generateRequest('/cons/get_updated_constituents', query)
         return self._makeGETRequest(url_secure)
 
+    def cons_getUpdatedConstituentIds(self, changed_since, filter=None):
+        query = {'changed_since': str(changed_since)}
+        if filter:
+            query['filter'] = str(Filters(filter))
+        url_secure = self._generateRequest('/cons/get_updated_constituent_ids', query)
+        return self._makeGETRequest(url_secure)
+
     def cons_setExtIds(self, ext_type, cons_id__ext_id):
         query = {'ext_type': str(ext_type)}
         query.update(cons_id__ext_id)
