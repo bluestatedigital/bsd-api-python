@@ -4,7 +4,8 @@ Blue State Digital Python API Client
 Requirements
 ------------
 
-* Python  2.7 < 3.0
+* Release Version 1.x for Python 2.7 < 3.0
+* Release Version 2.x for Python 3.x +
 
 Installing
 ----------

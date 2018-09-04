@@ -29,18 +29,18 @@ setup(
     packages=['bsdapi'],
     package_dir={'bsdapi': 'bsdapi'},
     entry_points={
-      'console_scripts': [
+        'console_scripts': [
             'bsdapi = bsdapi.Main:Cli'
         ]
-      },
-    license = "Apache",
-    keywords = "API, Client, HTTP",
-    url = "http://tools.bluestatedigital.com/",
+    },
+    license="Apache",
+    keywords="API, Client, HTTP",
+    url="http://tools.bluestatedigital.com/",
     classifiers=[
-          "Programming Language :: Python",
-          "Development Status :: 4 - Beta",
-          "Intended Audience :: Developers",
-          "Natural Language :: English",
-      ],
-    install_requires = ["requests"]
-    )
+        "Programming Language :: Python",
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "Natural Language :: English",
+    ],
+    install_requires=["requests"]
+)

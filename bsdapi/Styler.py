@@ -14,26 +14,31 @@
 #
 
 class Factory:
-    def create(self, ansiColors = True):
+    def create(self, ansiColors=True):
         if ansiColors:
             colorizer = AnsiColorizer()
         else:
             colorizer = NullColorizer()
         return Styler(colorizer)
 
+
 class Styler:
     def __init__(self, colorizer):
         self.__dict__.update(locals())
+
     def color(self, string, color):
         return self.colorizer.color(string, color)
+
 
 class Colorizer:
     def color(self, string, color):
         raise Exception('Not implemented')
 
+
 class NullColorizer:
     def color(self, string, color):
         return string
+
 
 class AnsiColorizer:
     def __init__(self):

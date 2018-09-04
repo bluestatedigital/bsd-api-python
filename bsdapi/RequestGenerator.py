@@ -23,11 +23,12 @@ except ImportError:
 
 from bsdapi.URL import URL
 
+
 class RequestGenerator:
 
-    def __init__(self, api_id, api_secret, api_host, https = False):
+    def __init__(self, api_id, api_secret, api_host, https=False):
         self.__dict__.update(locals())
-        self.api_base   = '/page/api'
+        self.api_base = '/page/api'
 
     def _query_str(self, api_params, quote=False):
         if quote:
@@ -49,7 +50,7 @@ class RequestGenerator:
         ])
         return hmac.new(self.api_secret.encode(), string.encode(), hashlib.sha1).hexdigest()
 
-    def getUrl(self, api_call, api_params = None):
+    def getUrl(self, api_call, api_params=None):
         if api_params is None: api_params = {}
 
         api_ts = str(int(time()))
