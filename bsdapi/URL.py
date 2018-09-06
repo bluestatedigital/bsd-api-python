@@ -24,7 +24,11 @@ except ImportError:
 class URL:
 
     def __init__(self, protocol='http', host='localhost', path='/', query=None):
-        self.__dict__.update(locals())
+        self.protocol = protocol
+        self.host = host
+        self.path = path
+        self.query = query
+
         try:
             urlEncodeFunc = urllib.urlencode
         except AttributeError:
