@@ -24,7 +24,7 @@ class Factory:
 
 class Styler:
     def __init__(self, colorizer):
-        self.__dict__.update(locals())
+        self.colorizer = colorizer
 
     def color(self, string, color):
         return self.colorizer.color(string, color)

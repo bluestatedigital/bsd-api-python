@@ -31,7 +31,15 @@ class BsdApi:
 
     def __init__(self, apiId, apiSecret, apiHost, apiResultFactory, apiPort=80, apiSecurePort=443, httpUsername=None,
                  httpPassword=None, verbose=False):
-        self.__dict__.update(locals())
+        self.apiId = apiId
+        self.apiSecret = apiSecret
+        self.apiHost = apiHost
+        self.apiResultFactory = apiResultFactory
+        self.apiPort = apiPort
+        self.apiSecurePort = apiSecurePort
+        self.httpUsername = httpUsername
+        self.httpPassword = httpPassword
+        self.verbose = verbose
 
     """
         ***** General *****
