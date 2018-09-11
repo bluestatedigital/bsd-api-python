@@ -411,7 +411,7 @@ class BsdApi:
 
         composite_url = ("https://" if https else "http://") + self.apiHost + url_secure.getPathAndQuery()
 
-        if headers == None:
+        if headers is None:
             headers = dict()
 
         headers['User-Agent'] = 'Python API'
