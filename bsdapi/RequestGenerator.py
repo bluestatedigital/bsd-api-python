@@ -13,7 +13,7 @@
 # limitations under the License.
 #
 
-import hmac, hashlib, unittest
+import hmac, hashlib
 from time import time
 
 try:

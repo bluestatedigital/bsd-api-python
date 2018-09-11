@@ -13,7 +13,7 @@
 # limitations under the License.
 #
 
-import argparse, logging, sys, readline, atexit, os, rlcompleter
+import argparse, sys, readline, atexit, os
 from code import InteractiveConsole
 
 try:
@@ -21,13 +21,8 @@ try:
 except ImportError:
     import ConfigParser as configparser
 
-from bsdapi.URL import URL
-from bsdapi.RequestGenerator import RequestGenerator
-from bsdapi.ApiResult import ApiResultPrettyPrintable
-from bsdapi.ApiResult import FactoryFactory as ApiResultFactoryFactory
 from bsdapi.BsdApi import Factory as BsdApiFactory
 from bsdapi.Logger import Factory as LoggerFactory
-from bsdapi.Styler import Factory as StylerFactory
 
 
 class Console(InteractiveConsole):

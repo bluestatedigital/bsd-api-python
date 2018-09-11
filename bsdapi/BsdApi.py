@@ -21,8 +21,7 @@ from bsdapi.ApiResult import FactoryFactory as ApiResultFactoryFactory
 from bsdapi.ApiResult import ApiResultPrettyPrintable
 
 import requests
-
-import sys, traceback, base64, logging, email.parser
+import base64
 
 
 class BsdApi:
