@@ -60,7 +60,7 @@ class BsdApi:
 
     def doRawRequest(self, api_call, api_params=None, request_type=GET, body=None, headers=None, https=True):
         url = self._generateRequest(api_call, api_params, https)
-        return self._makeRequest(url, request_type, body, headers, https);
+        return self._makeRequest(url, request_type, body, headers, https)
 
     """
         ***** Account *****
@@ -71,8 +71,8 @@ class BsdApi:
         url_secure = self._generateRequest('/account/check_credentials', query, https=True)
         return self._makeGETRequest(url_secure, https=True)
 
-    def account_createAccount(self, email, password, firstname, lastname, zip):
-        query = {'email': email, 'password': password, 'firstname': firstname, 'lastname': lastname, 'zip': zip}
+    def account_createAccount(self, email, password, firstname, lastname, zipCode):
+        query = {'email': email, 'password': password, 'firstname': firstname, 'lastname': lastname, 'zip': zipCode}
         url_secure = self._generateRequest('/account/create_account', query, https=True)
         return self._makeGETRequest(url_secure, https=True)
 
@@ -90,8 +90,8 @@ class BsdApi:
         ***** Cons *****
     """
 
-    def cons_getConstituents(self, filter, bundles=None):
-        query = {'filter': str(Filters(filter))}
+    def cons_getConstituents(self, request_filter, bundles=None):
+        query = {'filter': str(Filters(request_filter))}
 
         if bundles:
             query['bundles'] = str(Bundles(bundles))
@@ -99,12 +99,12 @@ class BsdApi:
         url_secure = self._generateRequest('/cons/get_constituents', query)
         return self._makeGETRequest(url_secure)
 
-    def cons_getConstituentsById(self, cons_ids, filter=None, bundles=None):
-        '''Retrieves constituents by ID '''
+    def cons_getConstituentsById(self, cons_ids, request_filter=None, bundles=None):
+        """Retrieves constituents by ID """
         query = {'cons_ids': ','.join([str(elem) for elem in cons_ids])}
 
-        if filter:
-            query['filter'] = str(Filters(filter))
+        if request_filter:
+            query['filter'] = str(Filters(request_filter))
 
         if bundles:
             query['bundles'] = str(Bundles(bundles))
@@ -112,11 +112,11 @@ class BsdApi:
         url_secure = self._generateRequest('/cons/get_constituents_by_id', query)
         return self._makeGETRequest(url_secure)
 
-    def cons_getConstituentsByExtId(self, ext_type, ext_ids, filter=None, bundles=None):
+    def cons_getConstituentsByExtId(self, ext_type, ext_ids, request_filter=None, bundles=None):
         query = {'ext_type': ext_type, 'ext_ids': ','.join([str(elem) for elem in ext_ids])}
 
-        if filter:
-            query['filter'] = str(Filters(filter))
+        if request_filter:
+            query['filter'] = str(Filters(request_filter))
 
         if bundles:
             query['bundles'] = str(Bundles(bundles))
@@ -124,11 +124,11 @@ class BsdApi:
         url_secure = self._generateRequest('/cons/get_constituents_by_ext_id', query)
         return self._makeGETRequest(url_secure)
 
-    def cons_getUpdatedConstituents(self, changed_since, filter=None, bundles=None):
+    def cons_getUpdatedConstituents(self, changed_since, request_filter=None, bundles=None):
         query = {'changed_since': str(changed_since)}
 
-        if filter:
-            query['filter'] = str(Filters(filter))
+        if request_filter:
+            query['filter'] = str(Filters(request_filter))
 
         if bundles:
             query['bundles'] = str(Bundles(bundles))
@@ -147,14 +147,14 @@ class BsdApi:
         url_secure = self._generateRequest('/cons/delete_constituents_by_id')
         return self._makePOSTRequest(url_secure, query)
 
-    def cons_getBulkConstituentData(self, format, fields, cons_ids=None, filter=None):
-        query = {'format': str(format), 'fields': ','.join([str(field) for field in fields])}
+    def cons_getBulkConstituentData(self, request_format, fields, cons_ids=None, request_filter=None):
+        query = {'format': str(request_format), 'fields': ','.join([str(field) for field in fields])}
 
         if cons_ids:
             query['cons_ids'] = ','.join([str(cons) for cons in cons_ids])
 
-        if filter:
-            query['filter'] = str(Filters(filter))
+        if request_filter:
+            query['filter'] = str(Filters(request_filter))
 
         url_secure = self._generateRequest('/cons/get_bulk_constituent_data', {})
         return self._makePOSTRequest(url_secure, query)
@@ -299,14 +299,14 @@ class BsdApi:
         ***** Contribution *****
     """
 
-    def contribution_getContributions(self, filter):
+    def contribution_getContributions(self, request_filter):
         """
         Get contributions with a filter
 
         **Does not currently support filtering by source**
         """
         query = {}
-        for key, value in filter.items():
+        for key, value in request_filter.items():
             query['filter[' + key + ']'] = value
 
         url_secure = self._generateRequest('/contribution/get_contributions', query)
@@ -340,8 +340,8 @@ class BsdApi:
         ***** Outreach *****
     """
 
-    def outreach_getPageById(self, id):
-        query = {'id': str(id)}
+    def outreach_getPageById(self, page_id):
+        query = {'id': str(page_id)}
         url_secure = self._generateRequest('/outreach/get_page_by_id')
         return self._makePOSTRequest(url_secure, query)
 
@@ -465,7 +465,10 @@ class BsdApi:
 
 
 class Factory:
-    def create(self, id, secret, host, port, securePort, colorize=False):
+    def __init__(self):
+        pass
+
+    def create(self, api_id, secret, host, port, securePort, colorize=False):
         styler = StylerFactory().create(colorize)
         apiResultFactory = ApiResultFactoryFactory().create(ApiResultPrettyPrintable(styler))
-        return BsdApi(id, secret, host, apiResultFactory, port, securePort)
+        return BsdApi(api_id, secret, host, apiResultFactory, port, securePort)
