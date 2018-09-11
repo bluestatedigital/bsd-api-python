@@ -108,10 +108,10 @@ def Cli():
 
     apiFactory = BsdApiFactory()
     api = apiFactory.create(
-        id=settings['basic']['api_id'], \
-        secret=settings['basic']['secret'], \
-        host=settings['basic']['host'], \
-        port=settings['basic']['port'], \
+        id=settings['basic']['api_id'],
+        secret=settings['basic']['secret'],
+        host=settings['basic']['host'],
+        port=settings['basic']['port'],
         securePort=settings['basic']['secure_port'],
         colorize=cli.color
     )

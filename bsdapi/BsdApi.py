@@ -459,7 +459,7 @@ class BsdApi:
         return url_secure
 
     def _makeGETRequest(self, url_secure, https=True):
-        return self._makeRequest(url_secure, BsdApi.GET, https=https);
+        return self._makeRequest(url_secure, BsdApi.GET, https=https)
 
     def _makePOSTRequest(self, url_secure, body, https=True):
         headers = {"Content-type": "application/x-www-form-urlencoded",
