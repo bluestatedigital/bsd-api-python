@@ -79,7 +79,7 @@ def Cli():
 
     cli = parser.parse_args()
     logger = LoggerFactory().create(cli.log_level)
-    logger.debug('CLI: %s' % (cli))
+    logger.debug('CLI: %s' % cli)
 
     if not os.path.exists(cli.config[0]):
         logger.error("Error: configuration file %s does not exist." % (cli.config[0]))
@@ -99,7 +99,7 @@ def Cli():
     for key, value in config.items('basic'):
         settings['basic'][key] = value
 
-    logger.debug('Settings: %s' % (settings))
+    logger.debug('Settings: %s' % settings)
 
     apiFactory = BsdApiFactory()
     api = apiFactory.create(

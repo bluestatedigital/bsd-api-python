@@ -13,7 +13,11 @@
 # limitations under the License.
 #
 
+
 class Factory:
+    def __init__(self):
+        pass
+
     def create(self, ansiColors=True):
         if ansiColors:
             colorizer = AnsiColorizer()
@@ -36,6 +40,9 @@ class Colorizer:
 
 
 class NullColorizer:
+    def __init__(self):
+        pass
+
     def color(self, string, color):
         return string
 

@@ -17,6 +17,9 @@ import logging
 
 
 class Factory:
+    def __init__(self):
+        pass
+
     logMap = {
         'debug': logging.DEBUG,
         'info': logging.INFO,
