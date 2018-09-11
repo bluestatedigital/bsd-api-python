@@ -405,7 +405,8 @@ class BsdApi:
     """
 
     def _makeRequest(self, url_secure, request_type, http_body=None, headers=None, https=True):
-        if self.apiPort == 443: https = True
+        if self.apiPort == 443:
+            https = True
         # TODO: support nonstandard ports?  We block them on Akamai anyway.
 
         composite_url = ("https://" if https else "http://") + self.apiHost + url_secure.getPathAndQuery()
@@ -440,8 +441,10 @@ class BsdApi:
             print("Error calling " + url_secure.getPathAndQuery())
 
     def _generateRequest(self, api_call, api_params=None, https=True):
-        if api_params is None: api_params = {}
-        if self.apiPort == 443: https = True
+        if api_params is None:
+            api_params = {}
+        if self.apiPort == 443:
+            https = True
 
         apiHost = self.apiHost
         if https:
