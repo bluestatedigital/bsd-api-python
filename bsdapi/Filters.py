@@ -50,3 +50,7 @@ class Filters:
     def __str__(self):
         filters = self._collapse()
         return ','.join(["%s%s" % (k, ('=' + v) if v != True else '') for k, v in filters.items()])
+
+
+class FilterError(Exception):
+    pass
