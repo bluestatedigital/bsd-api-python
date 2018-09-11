@@ -103,7 +103,7 @@ def Cli():
 
     apiFactory = BsdApiFactory()
     api = apiFactory.create(
-        id=settings['basic']['api_id'],
+        api_id=settings['basic']['api_id'],
         secret=settings['basic']['secret'],
         host=settings['basic']['host'],
         port=settings['basic']['port'],
