@@ -136,6 +136,13 @@ class BsdApi:
         url_secure = self._generateRequest('/cons/get_updated_constituents', query)
         return self._makeGETRequest(url_secure)
 
+    def cons_getUpdatedConstituentIds(self, changed_since, filter=None):
+        query = {'changed_since': str(changed_since)}
+        if filter:
+            query['filter'] = str(Filters(filter))
+        url_secure = self._generateRequest('/cons/get_updated_constituent_ids', query)
+        return self._makeGETRequest(url_secure)
+
     def cons_setExtIds(self, ext_type, cons_id__ext_id):
         query = {'ext_type': str(ext_type)}
         query.update(cons_id__ext_id)
@@ -430,7 +437,10 @@ class BsdApi:
             response = requests.request(request_type, composite_url, data=http_body, headers=headers, verify=True)
 
             headers = response.headers
-            body = response.text
+            if self.encoding:
+                body = response.text.encode(self.encoding)
+            else:
+                body = response.text
 
             results = self.apiResultFactory.create(url_secure, response, headers, body)
             return results
@@ -465,7 +475,9 @@ class BsdApi:
 
 
 class Factory:
-    def create(self, id, secret, host, port, securePort, colorize=False):
+    def create(self, id, secret, host, port, securePort, colorize=False, httpUsername=None, httpPassword=None,
+               verbose=False, encoding=None):
         styler = StylerFactory().create(colorize)
         apiResultFactory = ApiResultFactoryFactory().create(ApiResultPrettyPrintable(styler))
-        return BsdApi(id, secret, host, apiResultFactory, port, securePort)
+        return BsdApi(id, secret, host, apiResultFactory, port, securePort, httpUsername, httpPassword, verbose,
+                      encoding)
