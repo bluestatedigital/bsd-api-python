@@ -27,7 +27,11 @@ from bsdapi.URL import URL
 class RequestGenerator:
 
     def __init__(self, api_id, api_secret, api_host, https=False):
-        self.__dict__.update(locals())
+        self.api_id = api_id
+        self.api_secret = api_secret
+        self.api_host = api_host
+        self.https = https
+
         self.api_base = '/page/api'
 
     def _query_str(self, api_params, quote=False):

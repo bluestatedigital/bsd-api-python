@@ -18,7 +18,7 @@ import json
 
 class ApiResultPrettyPrintable:
     def __init__(self, styler):
-        self.__dict__.update(locals())
+        self.styler = styler
 
     def toString(self, apiResult):
         if apiResult.http_status == 200:
@@ -46,11 +46,16 @@ class ApiResultPrettyPrintable:
 
 class ApiResult:
     def __init__(self, request_url, http_response, headers, body, stringizer=None):
+        self.request_url = request_url
+        self.http_response = http_response
+        self.headers = headers
+        self.body = body
+        self.stringizer = stringizer
+
         self.s = http_response
         self.http_status = http_response.status_code
         self.http_reason = http_response.reason
         self.http_version = 'HTTP/1.1'
-        self.__dict__.update(locals())
 
     def __str__(self):
         if self.stringizer:
@@ -60,7 +65,7 @@ class ApiResult:
 
 class Factory:
     def __init__(self, stringizer):
-        self.__dict__.update(locals())
+        self.stringizer = stringizer
 
     def create(self, url_secure, response, headers, body):
         return ApiResult(url_secure, response, headers, body, self.stringizer)
