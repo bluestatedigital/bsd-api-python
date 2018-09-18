@@ -13,7 +13,7 @@
 # limitations under the License.
 #
 
-import argparse, logging, sys, readline, atexit, os, rlcompleter
+import argparse, sys, readline, atexit, os
 from code import InteractiveConsole
 
 try:
@@ -21,13 +21,8 @@ try:
 except ImportError:
     import ConfigParser as configparser
 
-from bsdapi.URL import URL
-from bsdapi.RequestGenerator import RequestGenerator
-from bsdapi.ApiResult import ApiResultPrettyPrintable
-from bsdapi.ApiResult import FactoryFactory as ApiResultFactoryFactory
 from bsdapi.BsdApi import Factory as BsdApiFactory
 from bsdapi.Logger import Factory as LoggerFactory
-from bsdapi.Styler import Factory as StylerFactory
 
 
 class Console(InteractiveConsole):
@@ -89,7 +84,7 @@ def Cli():
 
     cli = parser.parse_args()
     logger = LoggerFactory().create(cli.log_level)
-    logger.debug('CLI: %s' % (cli))
+    logger.debug('CLI: %s' % cli)
 
     if not os.path.exists(cli.config[0]):
         logger.error("Error: configuration file %s does not exist." % (cli.config[0]))
@@ -109,11 +104,11 @@ def Cli():
     for key, value in config.items('basic'):
         settings['basic'][key] = value
 
-    logger.debug('Settings: %s' % (settings))
+    logger.debug('Settings: %s' % settings)
 
     apiFactory = BsdApiFactory()
     api = apiFactory.create(
-        id=settings['basic']['api_id'],
+        api_id=settings['basic']['api_id'],
         secret=settings['basic']['secret'],
         host=settings['basic']['host'],
         port=settings['basic']['port'],

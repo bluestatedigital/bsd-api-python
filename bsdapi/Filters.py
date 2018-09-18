@@ -13,6 +13,7 @@
 # limitations under the License.
 #
 
+
 class Filters:
 
     def __init__(self, filters):
@@ -32,9 +33,9 @@ class Filters:
                 filters[key] = value[0]
             elif key == 'state_cd' and type(value).__name__ == 'str':
                 filters[key] = value
-            elif key in ['is_subscribed', 'has_account'] and value == True:
+            elif key in ['is_subscribed', 'has_account'] and value is True:
                 filters[key] = True
-            elif key in ['is_subscribed', 'has_account'] and value == False:
+            elif key in ['is_subscribed', 'has_account'] and value is False:
                 continue
             elif key == 'primary_state_cd' and type(value).__name__ == 'str':
                 filters[key] = value
@@ -50,3 +51,7 @@ class Filters:
     def __str__(self):
         filters = self._collapse()
         return ','.join(["%s%s" % (k, ('=' + v) if v != True else '') for k, v in filters.items()])
+
+
+class FilterError(Exception):
+    pass
