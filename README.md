@@ -49,6 +49,7 @@ To display usage options use the `--help` flag
                             'debug', 'error', 'warning', 'info', or 'critical'
       -c, --color           Display with ANSI terminal colors.
       -v, --verbose         Show verbose output.
+      -e, --encode          Enable encoding (UTF-8, UTF-16, ...)
 
     (c) 2011 Blue State Digital
 
@@ -201,6 +202,7 @@ The following methods are available for use. All methods return a `BsdApiResults
     * `cons_getConstituents(filter, bundles=None)`
     * `cons_getConstituentsById(cons_ids, filter=None, bundles=None)`
     * `cons_getConstituentsByExtId(ext_type, ext_ids, filter=None, bundles=None)`
+    * `cons_getUpdatedConstituentIds(changed_since, filter=None)`
     * `cons_getUpdatedConstituents(changed_since, filter=None, bundles=None)`
     * `cons_setExtIds(ext_type, cons_id__ext_id)`
     * `cons_deleteConstituentsById(cons_ids)`

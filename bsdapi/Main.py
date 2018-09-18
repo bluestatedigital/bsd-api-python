@@ -50,8 +50,8 @@ class Console(InteractiveConsole):
 def Cli():
     ver = sys.version_info
 
-    if ver.major < 2 or (ver.major == 3 and ver.minor < 2) or (ver.major == 2 and ver.minor < 7):
-        print("Python 2.7+ required. %d.%d.%d installed" % (ver.major, ver.minor, ver.micro))
+    if ver.major < 3:
+        print("Python 3.x required. %d.%d.%d installed" % (ver.major, ver.minor, ver.micro))
         sys.exit(-1)
 
     parser = argparse.ArgumentParser(
@@ -76,6 +76,11 @@ def Cli():
                         action='store_true',
                         default=False,
                         help='Show verbose output.')
+
+    parser.add_argument('-e', '--encode',
+                        action='store',
+                        default=None,
+                        help='Enable UTF8 Encoding.')
 
     cli = parser.parse_args()
     logger = LoggerFactory().create(cli.log_level)
@@ -108,7 +113,11 @@ def Cli():
         host=settings['basic']['host'],
         port=settings['basic']['port'],
         securePort=settings['basic']['secure_port'],
-        colorize=cli.color
+        colorize=cli.color,
+        httpUsername=None,
+        httpPassword=None,
+        verbose=cli.verbose,
+        encoding=cli.encode
     )
 
     console = Console({
