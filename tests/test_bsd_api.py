@@ -3,8 +3,8 @@ from bsdapi.BsdApi import Factory
 from bsdapi.BsdApi import BsdApi
 from mock import patch
 from mock import Mock
-from urlparse import urlparse
-from urlparse import parse_qs
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
 import pytest
 import time
 from bsdapi.ApiResult import FactoryFactory as ApiResultFactoryFactory
