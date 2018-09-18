@@ -42,5 +42,5 @@ setup(
         "Intended Audience :: Developers",
         "Natural Language :: English",
     ],
-    install_requires=["requests"]
+    install_requires=["requests", 'pytest', 'pytest-html', 'pytest-mock', 'requests_mock', 'mock', 'freezegun']
 )
