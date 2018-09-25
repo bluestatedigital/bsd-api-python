@@ -217,13 +217,13 @@ class BsdApi:
 
     def cons_deleteDataset(self, dataset_id):
         query = {'dataset_id': str(dataset_id)}
-        url_secure = self._generateRequest('/cons_group/delete_dataset', query)
-        return self._makeGETRequest(url_secure)
+        url_secure = self._generateRequest('/cons/delete_dataset')
+        return self._makePOSTRequest(url_secure, query)
 
     def cons_deleteDatasetMap(self, map_id):
         query = {'map_id': str(map_id)}
-        url_secure = self._generateRequest('/cons_group/delete_dataset_map', query)
-        return self._makeGETRequest(url_secure)
+        url_secure = self._generateRequest('/cons/delete_dataset_map')
+        return self._makePOSTRequest(url_secure, query)
 
     """
         ***** Cons_Group *****
@@ -253,7 +253,7 @@ class BsdApi:
         return self._makeGETRequest(url_secure)
 
     def cons_group_getExtIdsForGroup(self, cons_group_id, ext_type):
-        query = {'cons_group_ids': str(cons_group_id), 'ext_type': ext_type}
+        query = {'cons_group_id': str(cons_group_id), 'ext_type': ext_type}
         url_secure = self._generateRequest('/cons_group/get_ext_ids_for_group', query)
         return self._makeGETRequest(url_secure)
 

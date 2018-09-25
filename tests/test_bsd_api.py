@@ -327,8 +327,8 @@ def test_cons_upload_dataset_map(api_client):
 
 def test_cons_delete_dataset(api_client):
     with requests_mock.Mocker() as m:
-        m.register_uri('GET', 'https://my.client/page/api/cons/delete_dataset',
-                       additional_matcher=get_query_parameter_matcher({'dataset_id': '8392'}))
+        m.register_uri('POST', 'https://my.client/page/api/cons/delete_dataset',
+                       additional_matcher=post_query_parameter_matcher({'dataset_id': '8392'}))
 
         result = api_client.cons_deleteDataset(8392)
         assert result.http_status == 200
@@ -336,8 +336,8 @@ def test_cons_delete_dataset(api_client):
 
 def test_cons_delete_dataset_map(api_client):
     with requests_mock.Mocker() as m:
-        m.register_uri('GET', 'https://my.client/page/api/cons/delete_dataset_map',
-                       additional_matcher=get_query_parameter_matcher({'map_id': '5746'}))
+        m.register_uri('POST', 'https://my.client/page/api/cons/delete_dataset_map',
+                       additional_matcher=post_query_parameter_matcher({'map_id': '5746'}))
 
         result = api_client.cons_deleteDatasetMap(5746)
         assert result.http_status == 200
