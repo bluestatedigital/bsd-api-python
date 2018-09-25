@@ -29,7 +29,7 @@ class BsdApi:
     POST = 'POST'
 
     def __init__(self, apiId, apiSecret, apiHost, apiResultFactory, apiPort=80, apiSecurePort=443, httpUsername=None,
-                 httpPassword=None, verbose=False, encoding=False):
+                 httpPassword=None, verbose=False, encoding=None):
         self.apiId = apiId
         self.apiSecret = apiSecret
         self.apiHost = apiHost
@@ -196,11 +196,11 @@ class BsdApi:
         return self._makeGETRequest(url_secure)
 
     def cons_listDatasets(self):
-        url_secure = self._generateRequest('cons/list_datasets')
+        url_secure = self._generateRequest('/cons/list_datasets')
         return self._makeGETRequest(url_secure)
 
     def cons_listDatasetMaps(self):
-        url_secure = self._generateRequest('cons/list_dataset_maps')
+        url_secure = self._generateRequest('/cons/list_dataset_maps')
         return self._makeGETRequest(url_secure)
 
     def cons_uploadDataset(self, slug, map_type, csv_data):
@@ -317,7 +317,6 @@ class BsdApi:
             query['filter[' + key + ']'] = value
 
         url_secure = self._generateRequest('/contribution/get_contributions', query)
-        print(url_secure)
         return self._makeGETRequest(url_secure)
 
     """
@@ -471,7 +470,7 @@ class BsdApi:
     def _makeGETRequest(self, url_secure, https=True):
         return self._makeRequest(url_secure, BsdApi.GET, https=https)
 
-    def _makePOSTRequest(self, url_secure, body, https=True):
+    def _makePOSTRequest(self, url_secure, body=None, https=True):
         headers = {"Content-type": "application/x-www-form-urlencoded",
                    "Accept": "text/xml"}
         return self._makeRequest(url_secure, BsdApi.POST, body, headers, https)

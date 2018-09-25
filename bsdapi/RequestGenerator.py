@@ -43,7 +43,7 @@ class RequestGenerator:
         else:
             urlQuoteFunc = lambda x: x
 
-        return '&'.join(["%s=%s" % (k, urlQuoteFunc(v)) for k, v in api_params])
+        return '&'.join(["%s=%s" % (k, urlQuoteFunc(str(v))) for k, v in api_params])
 
     def _signing_string(self, api_ts, api_call, api_params):
         string = "\n".join([
