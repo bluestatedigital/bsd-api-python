@@ -29,7 +29,7 @@ class BsdApi:
     POST = 'POST'
 
     def __init__(self, apiId, apiSecret, apiHost, apiResultFactory, apiPort=80, apiSecurePort=443, httpUsername=None,
-                 httpPassword=None, verbose=False):
+                 httpPassword=None, verbose=False, encoding=False):
         self.apiId = apiId
         self.apiSecret = apiSecret
         self.apiHost = apiHost
@@ -39,6 +39,7 @@ class BsdApi:
         self.httpUsername = httpUsername
         self.httpPassword = httpPassword
         self.verbose = verbose
+        self.encoding = encoding
 
     """
         ***** General *****
