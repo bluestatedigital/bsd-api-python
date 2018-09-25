@@ -29,7 +29,7 @@ class BsdApi:
     POST = 'POST'
 
     def __init__(self, apiId, apiSecret, apiHost, apiResultFactory, apiPort=80, apiSecurePort=443, httpUsername=None,
-                 httpPassword=None, verbose=False):
+                 httpPassword=None, verbose=False, encoding=None):
         self.apiId = apiId
         self.apiSecret = apiSecret
         self.apiHost = apiHost
@@ -39,6 +39,7 @@ class BsdApi:
         self.httpUsername = httpUsername
         self.httpPassword = httpPassword
         self.verbose = verbose
+        self.encoding = encoding
 
     """
         ***** General *****
@@ -195,11 +196,11 @@ class BsdApi:
         return self._makeGETRequest(url_secure)
 
     def cons_listDatasets(self):
-        url_secure = self._generateRequest('cons/list_datasets')
+        url_secure = self._generateRequest('/cons/list_datasets')
         return self._makeGETRequest(url_secure)
 
     def cons_listDatasetMaps(self):
-        url_secure = self._generateRequest('cons/list_dataset_maps')
+        url_secure = self._generateRequest('/cons/list_dataset_maps')
         return self._makeGETRequest(url_secure)
 
     def cons_uploadDataset(self, slug, map_type, csv_data):
@@ -216,12 +217,12 @@ class BsdApi:
 
     def cons_deleteDataset(self, dataset_id):
         query = {'dataset_id': str(dataset_id)}
-        url_secure = self._generateRequest('/cons_group/delete_dataset', query)
+        url_secure = self._generateRequest('/cons/delete_dataset', query)
         return self._makeGETRequest(url_secure)
 
     def cons_deleteDatasetMap(self, map_id):
         query = {'map_id': str(map_id)}
-        url_secure = self._generateRequest('/cons_group/delete_dataset_map', query)
+        url_secure = self._generateRequest('/cons/delete_dataset_map', query)
         return self._makeGETRequest(url_secure)
 
     """
@@ -252,7 +253,7 @@ class BsdApi:
         return self._makeGETRequest(url_secure)
 
     def cons_group_getExtIdsForGroup(self, cons_group_id, ext_type):
-        query = {'cons_group_ids': str(cons_group_id), 'ext_type': ext_type}
+        query = {'cons_group_id': str(cons_group_id), 'ext_type': ext_type}
         url_secure = self._generateRequest('/cons_group/get_ext_ids_for_group', query)
         return self._makeGETRequest(url_secure)
 
@@ -316,7 +317,6 @@ class BsdApi:
             query['filter[' + key + ']'] = value
 
         url_secure = self._generateRequest('/contribution/get_contributions', query)
-        print(url_secure)
         return self._makeGETRequest(url_secure)
 
     """
@@ -470,7 +470,7 @@ class BsdApi:
     def _makeGETRequest(self, url_secure, https=True):
         return self._makeRequest(url_secure, BsdApi.GET, https=https)
 
-    def _makePOSTRequest(self, url_secure, body, https=True):
+    def _makePOSTRequest(self, url_secure, body=None, https=True):
         headers = {"Content-type": "application/x-www-form-urlencoded",
                    "Accept": "text/xml"}
         return self._makeRequest(url_secure, BsdApi.POST, body, headers, https)

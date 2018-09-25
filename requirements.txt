@@ -1,0 +1,7 @@
+requests
+pytest
+pytest-html
+pytest-mock
+requests_mock
+mock
+freezegun
