@@ -1,5 +1,9 @@
 .cache/
 
+# Testing
+./pytest_cache/
+test-results-htm
+
 *.py[co]
 
 # Packages
