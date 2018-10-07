@@ -10,10 +10,11 @@ python:
 install:
   - "pip install pipenv"
   - "pip install coveralls"
+  - "pip install tox-travis"
   - 'pipenv sync'
 # command to run tests
 script:
-  - "make test"
+  - "tox"
 # send coverage report
 after_success:
   - "make coveralls"
