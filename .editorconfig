@@ -1,4 +1,7 @@
-# Override for Makefile
 [{Makefile, makefile, GNUmakefile}]
 indent_style = tab
+indent_size = 4
+
+[*.py]
+indent_stype = space
 indent_size = 4

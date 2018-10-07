@@ -1,33 +1,25 @@
-.cache/
+venv/
+.idea
 
-# Testing
-./pytest_cache/
-test-results-htm
-
-*.py[co]
-
-# Packages
+/.eggs
+/build
+/dist
+/MANIFEST
+.python-version
+*.pyc
 *.egg
-*.egg-info
-dist
-build
-eggs
-parts
-bin
-var
-sdist
-develop-eggs
-.installed.cfg
-
-# Installer logs
-pip-log.txt
+*.class
 
 # Unit test / coverage reports
+.tox/
 .coverage
-.tox
+.cache
+.pytest_cache
+nosetests.xml
+coverage.xml
+htmlcov/
 
-# IDE
-.idea/
-
-# Virtual Environments
-venv*/
+# sphinx build and rst folder
+docs/_build
+docs/build
+docs/source/_rst

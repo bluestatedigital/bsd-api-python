@@ -13,5 +13,7 @@
 # limitations under the License.
 #
 
-from .client import BsdApiClient
-from .auth import BsdApiAuth
+from .client import BsdApiClient  # noqa
+from .auth import BsdApiAuth  # noqa
+
+__all__ = [BsdApiAuth, BsdApiClient]
